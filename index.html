@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>JG Food | Good Food. Anywhere.</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            JG<span>Food</span>
+        </div>
+
+        <div class="location">
+            <small>Deliver to</small>
+            <strong>📍 Your location</strong>
+        </div>
+
+        <button class="account-btn">
+            👤
+        </button>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="welcome">WELCOME TO JG FOOD</p>
+
+            <h1>
+                Good food.<br>
+                Good mood.
+            </h1>
+
+            <p class="hero-text">
+                Discover restaurants, order your favorite meals,
+                and enjoy great food wherever you are.
+            </p>
+
+            <div class="search-box">
+
+                <span>🔎</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search food or restaurants..."
+                >
+
+                <button onclick="searchFood()">
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOD CATEGORIES -->
+    <section class="section">
+
+        <div class="section-title">
+            <h2>What are you craving?</h2>
+        </div>
+
+        <div class="categories">
+
+            <button onclick="filterFood('Burger')">
+                🍔
+                <span>Burgers</span>
+            </button>
+
+            <button onclick="filterFood('Pizza')">
+                🍕
+                <span>Pizza</span>
+            </button>
+
+            <button onclick="filterFood('Chicken')">
+                🍗
+                <span>Chicken</span>
+            </button>
+
+            <button onclick="filterFood('African')">
+                🍛
+                <span>African</span>
+            </button>
+
+            <button onclick="filterFood('Noodles')">
+                🍜
+                <span>Noodles</span>
+            </button>
+
+            <button onclick="filterFood('Dessert')">
+                🍰
+                <span>Desserts</span>
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESTAURANTS -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>Restaurants near you</h2>
+
+            <button class="see-all">
+                See all
+            </button>
+
+        </div>
+
+
+        <div class="restaurant-grid" id="restaurantList">
+
+
+            <!-- RESTAURANT 1 -->
+
+            <article class="restaurant-card">
+
+                <div class="restaurant-image burger">
+                    🍔
+                </div>
+
+                <div class="restaurant-info">
+
+                    <h3>Burger District</h3>
+
+                    <p>
+                        ⭐ 4.8 · 15–25 min · ₦600 delivery
+                    </p>
+
+                    <div class="tags">
+                        <span>Burgers</span>
+                        <span>Fries</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- RESTAURANT 2 -->
+
+            <article class="restaurant-card">
+
+                <div class="restaurant-image african">
+                    🍛
+                </div>
+
+                <div class="restaurant-info">
+
+                    <h3>Mama's Kitchen</h3>
+
+                    <p>
+                        ⭐ 4.9 · 20–30 min · ₦700 delivery
+                    </p>
+
+                    <div class="tags">
+                        <span>African</span>
+                        <span>Rice</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- RESTAURANT 3 -->
+
+            <article class="restaurant-card">
+
+                <div class="restaurant-image pizza">
+                    🍕
+                </div>
+
+                <div class="restaurant-info">
+
+                    <h3>La Pizza House</h3>
+
+                    <p>
+                        ⭐ 4.7 · 25–35 min · ₦800 delivery
+                    </p>
+
+                    <div class="tags">
+                        <span>Pizza</span>
+                        <span>Italian</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- RESTAURANT 4 -->
+
+            <article class="restaurant-card">
+
+                <div class="restaurant-image chicken">
+                    🍗
+                </div>
+
+                <div class="restaurant-info">
+
+                    <h3>Chop & Grill</h3>
+
+                    <p>
+                        ⭐ 4.9 · 20–30 min · ₦650 delivery
+                    </p>
+
+                    <div class="tags">
+                        <span>Chicken</span>
+                        <span>Grill</span>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <button class="active" onclick="showSection('Home')">
+            🏠
+            <span>Home</span>
+        </button>
+
+        <button onclick="showSection('Explore')">
+            🔎
+            <span>Explore</span>
+        </button>
+
+        <button onclick="showSection('Orders')">
+            🛍️
+            <span>Orders</span>
+        </button>
+
+        <button onclick="showSection('Account')">
+            👤
+            <span>Account</span>
+        </button>
+
+    </nav>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="app.js"></script>
+
+</body>
+</html>
