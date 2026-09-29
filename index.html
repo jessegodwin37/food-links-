@@ -2,45 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        content="width=device-width, initial-scale=1.0"
     >
 
     <meta
         name="description"
-        content="JG FOOD — Discover great food, restaurants and fast delivery."
+        content="JG FOOD — Discover restaurants, order delicious food and get it delivered."
     >
+
     <meta name="theme-color" content="#f4512c">
 
     <title>JG FOOD | Food Delivered With Ease</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- IMPORTANT:
+         style.css is in the main repository.
+         There is NO css folder.
+    -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =========================
+    <!-- ==============================
          HEADER
-    ========================== -->
+    =============================== -->
     <header class="site-header">
 
         <div class="header-inner">
 
-            <!-- Logo -->
+            <!-- LOGO -->
             <a href="index.html" class="logo">
-                <span class="logo-mark">JG</span>
+
+                <span class="logo-mark">
+                    JG
+                </span>
 
                 <span class="logo-text">
                     <strong>JG</strong>
                     <small>FOOD</small>
                 </span>
+
             </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="main-nav" id="mainNav">
 
-                <a href="index.html" class="active">
+            <!-- DESKTOP NAVIGATION -->
+            <nav class="main-nav">
+
+                <a
+                    href="index.html"
+                    class="active"
+                >
                     Home
                 </a>
 
@@ -62,41 +76,52 @@
 
             </nav>
 
-            <!-- Header Actions -->
+
+            <!-- HEADER ACTIONS -->
             <div class="header-actions">
 
-                <!-- Theme -->
+                <!-- THEME -->
                 <button
                     type="button"
                     class="theme-btn"
                     id="themeToggle"
-                    aria-label="Toggle light and dark mode"
-                    title="Toggle theme"
-                >🌙</button>
+                    aria-label="Switch theme"
+                >
+                    🌙
+                </button>
 
-                <!-- Account -->
+
+                <!-- ACCOUNT -->
                 <a
                     href="account.html"
                     class="account-btn"
                     aria-label="Account"
-                    title="Account"
                 >
                     👤
                 </a>
 
-                <!-- Cart -->
+
+                <!-- CART -->
                 <button
                     type="button"
                     class="cart-btn"
                     id="cartBtn"
                     aria-label="Shopping cart"
-                    title="Cart"
                 >
+
                     🛒
-                    <span class="cart-count" id="cartCount">0</span>
+
+                    <span
+                        class="cart-count"
+                        id="cartCount"
+                    >
+                        0
+                    </span>
+
                 </button>
 
-                <!-- Mobile Menu -->
+
+                <!-- MOBILE MENU -->
                 <button
                     type="button"
                     class="menu-btn"
@@ -111,10 +136,17 @@
 
         </div>
 
-        <!-- Mobile Navigation -->
-        <div class="mobile-menu" id="mobileMenu">
 
-            <a href="index.html" class="active">
+        <!-- MOBILE MENU -->
+        <div
+            class="mobile-menu"
+            id="mobileMenu"
+        >
+
+            <a
+                href="index.html"
+                class="active"
+            >
                 <span>⌂</span>
                 Home
             </a>
@@ -144,14 +176,15 @@
     </header>
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+    <!-- ==============================
+         MAIN CONTENT
+    =============================== -->
     <main>
 
-        <!-- =========================
+
+        <!-- ==============================
              HERO
-        ========================== -->
+        =============================== -->
         <section class="hero">
 
             <div class="hero-content">
@@ -161,20 +194,26 @@
                     Delicious food, delivered
                 </div>
 
+
                 <h1>
                     Your favorite food,
                     <span>just a tap away.</span>
                 </h1>
 
+
                 <p>
-                    Discover amazing meals from restaurants around you
-                    and get them delivered straight to your doorstep.
+                    Discover amazing meals from restaurants
+                    around you and get them delivered
+                    straight to your doorstep.
                 </p>
 
-                <!-- Search -->
+
+                <!-- SEARCH -->
                 <div class="hero-search">
 
-                    <span class="search-icon">⌕</span>
+                    <span class="search-icon">
+                        ⌕
+                    </span>
 
                     <input
                         type="search"
@@ -192,26 +231,448 @@
 
                 </div>
 
-                <!-- Hero Stats -->
+
+                <!-- HERO STATS -->
                 <div class="hero-stats">
 
                     <div class="hero-stat">
-                        <strong>100+</strong>
-                        <span>Meals</span>
+
+                        <strong>
+                            100+
+                        </strong>
+
+                        <span>
+                            Meals
+                        </span>
+
                     </div>
 
-                    <div class="hero-stat">
-                        <strong>30+</strong>
-                        <span>Restaurants</span>
-                    </div>
 
                     <div class="hero-stat">
-                        <strong>Fast</strong>
-                        <span>Delivery</span>
+
+                        <strong>
+                            30+
+                        </strong>
+
+                        <span>
+                            Restaurants
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            Fast
+                        </strong>
+
+                        <span>
+                            Delivery
+                        </span>
+
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- Hero
+
+            <!-- HERO FOOD VISUAL -->
+            <div class="hero-visual">
+
+                <div class="hero-glow"></div>
+
+                <div class="hero-food-card">
+
+                    <div class="hero-food-image">
+                        🍔
+                    </div>
+
+                    <div class="hero-food-info">
+
+                        <span>
+                            Today's pick
+                        </span>
+
+                        <strong>
+                            Classic Burger
+                        </strong>
+
+                        <div class="hero-rating">
+                            ⭐ 4.9
+                        </div>
+
+                    </div>
+
+                    <div class="hero-price">
+                        ₦4,500
+                    </div>
+
+                </div>
+
+
+                <div class="floating-food floating-one">
+                    🍕
+                </div>
+
+                <div class="floating-food floating-two">
+                    🍟
+                </div>
+
+                <div class="floating-food floating-three">
+                    🥤
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             CATEGORIES
+        =============================== -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        Explore
+                    </span>
+
+                    <h2>
+                        What are you craving?
+                    </h2>
+
+                </div>
+
+                <a
+                    href="food.html"
+                    class="section-link"
+                >
+                    View all →
+                </a>
+
+            </div>
+
+
+            <div
+                class="category-grid"
+                id="categoryGrid"
+            >
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Burgers"
+                >
+
+                    <span class="category-icon">
+                        🍔
+                    </span>
+
+                    <strong>
+                        Burgers
+                    </strong>
+
+                    <small>
+                        Fresh & tasty
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Pizza"
+                >
+
+                    <span class="category-icon">
+                        🍕
+                    </span>
+
+                    <strong>
+                        Pizza
+                    </strong>
+
+                    <small>
+                        Hot & cheesy
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Chicken"
+                >
+
+                    <span class="category-icon">
+                        🍗
+                    </span>
+
+                    <strong>
+                        Chicken
+                    </strong>
+
+                    <small>
+                        Crispy & juicy
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Rice"
+                >
+
+                    <span class="category-icon">
+                        🍚
+                    </span>
+
+                    <strong>
+                        Rice
+                    </strong>
+
+                    <small>
+                        Local favorites
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Drinks"
+                >
+
+                    <span class="category-icon">
+                        🥤
+                    </span>
+
+                    <strong>
+                        Drinks
+                    </strong>
+
+                    <small>
+                        Cold & refreshing
+                    </small>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="category-card"
+                    data-category="Desserts"
+                >
+
+                    <span class="category-icon">
+                        🍰
+                    </span>
+
+                    <strong>
+                        Desserts
+                    </strong>
+
+                    <small>
+                        Sweet treats
+                    </small>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==============================
+             RESTAURANTS
+        =============================== -->
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        Nearby
+                    </span>
+
+                    <h2>
+                        Popular restaurants
+                    </h2>
+
+                </div>
+
+                <a
+                    href="restaurants.html"
+                    class="section-link"
+                >
+                    See all →
+                </a>
+
+            </div>
+
+
+            <div
+                class="restaurant-grid"
+                id="restaurantGrid"
+            >
+
+
+                <!-- RESTAURANT 1 -->
+                <article
+                    class="restaurant-card"
+                    data-restaurant="Jesse's Kitchen"
+                >
+
+                    <div class="restaurant-image">
+
+                        <span class="restaurant-tag">
+                            Popular
+                        </span>
+
+                        <span class="restaurant-emoji">
+                            🍛
+                        </span>
+
+                    </div>
+
+
+                    <div class="restaurant-content">
+
+                        <div class="restaurant-title-row">
+
+                            <h3>
+                                Jesse's Kitchen
+                            </h3>
+
+                            <span class="rating">
+                                ⭐ 4.8
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Nigerian • Local meals
+                        </p>
+
+
+                        <div class="restaurant-meta">
+
+                            <span>
+                                🕐 20–30 min
+                            </span>
+
+                            <span>
+                                ₦₦
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="restaurant-btn"
+                            data-restaurant-open="Jesse's Kitchen"
+                        >
+                            View restaurant
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- RESTAURANT 2 -->
+                <article
+                    class="restaurant-card"
+                    data-restaurant="Urban Bites"
+                >
+
+                    <div class="restaurant-image">
+
+                        <span class="restaurant-tag">
+                            Fast
+                        </span>
+
+                        <span class="restaurant-emoji">
+                            🍔
+                        </span>
+
+                    </div>
+
+
+                    <div class="restaurant-content">
+
+                        <div class="restaurant-title-row">
+
+                            <h3>
+                                Urban Bites
+                            </h3>
+
+                            <span class="rating">
+                                ⭐ 4.7
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Burgers • Fast food
+                        </p>
+
+
+                        <div class="restaurant-meta">
+
+                            <span>
+                                🕐 15–25 min
+                            </span>
+
+                            <span>
+                                ₦₦
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="restaurant-btn"
+                            data-restaurant-open="Urban Bites"
+                        >
+                            View restaurant
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- RESTAURANT 3 -->
+                <article
+                    class="restaurant-card"
+                    data-restaurant="Pizza House"
+                >
+
+                    <div class="restaurant-image">
+
+                        <span class="restaurant-tag">
+                            Top rated
+                        </span>
+
+                        <span class="restaurant-emoji">
+                            🍕
+                        </span>
+
+                    </div>
+
+
+                    <div class="
