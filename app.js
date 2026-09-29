@@ -1,133 +1,98 @@
 /* =========================================================
-   JG FOOD — MAIN APP.JS
-   Complete frontend controller
+   JG FOOD — COMPLETE APP.JS
 ========================================================= */
 
 "use strict";
 
 /* =========================================================
-   HELPERS
+   GLOBAL STATE
 ========================================================= */
 
-const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
-
-const $$ = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
-
-const formatCurrency = (amount) =>
-    new Intl.NumberFormat("en-NG", {
-        style: "currency",
-        currency: "NGN",
-        maximumFractionDigits: 0
-    }).format(Number(amount) || 0);
+const JG_FOOD = {
+    cart: JSON.parse(localStorage.getItem("jgFoodCart") || "[]"),
+    favorites: JSON.parse(localStorage.getItem("jgFoodFavorites") || "[]"),
+    theme: localStorage.getItem("jgFoodTheme") || "light"
+};
 
 
 /* =========================================================
-   APP STATE
+   BASIC HELPERS
 ========================================================= */
 
-let cart = JSON.parse(localStorage.getItem("jgFoodCart") || "[]");
+function $(selector) {
+    return document.querySelector(selector);
+}
 
-let favorites = JSON.parse(
-    localStorage.getItem("jgFoodFavorites") || "[]"
-);
+function $$(selector) {
+    return document.querySelectorAll(selector);
+}
 
+function saveCart() {
+    localStorage.setItem(
+        "jgFoodCart",
+        JSON.stringify(JG_FOOD.cart)
+    );
+}
 
-/* =========================================================
-   DOM READY
-========================================================= */
+function saveFavorites() {
+    localStorage.setItem(
+        "jgFoodFavorites",
+        JSON.stringify(JG_FOOD.favorites)
+    );
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadTheme();
-    initializeMenu();
-    initializeSearch();
-    initializeCart();
-    initializeFoodCards();
-    initializeFavorites();
-    initializeRestaurants();
-    initializeCategories();
-    initializeModals();
-    initializeNotifications();
-    initializeBottomNavigation();
-    initializeAssistant();
-    updateCartUI();
-
-});
+function formatMoney(amount) {
+    return "₦" + Number(amount || 0).toLocaleString("en-NG");
+}
 
 
 /* =========================================================
    THEME
 ========================================================= */
 
-function loadTheme() {
-
-    const savedTheme =
-        localStorage.getItem("jgFoodTheme");
-
-    const isDark =
-        savedTheme === "dark";
-
+function applyTheme() {
     document.body.classList.toggle(
         "dark-mode",
-        isDark
+        JG_FOOD.theme === "dark"
     );
 
-    updateThemeButton(isDark);
+    const themeButton =
+        document.getElementById("themeToggle");
+
+    if (themeButton) {
+        themeButton.textContent =
+            JG_FOOD.theme === "dark"
+                ? "☀️"
+                : "🌙";
+
+        themeButton.setAttribute(
+            "aria-label",
+            JG_FOOD.theme === "dark"
+                ? "Switch to light mode"
+                : "Switch to dark mode"
+        );
+
+        themeButton.setAttribute(
+            "title",
+            JG_FOOD.theme === "dark"
+                ? "Light mode"
+                : "Dark mode"
+        );
+    }
 }
 
-
 function toggleTheme() {
-
-    const isDark =
-        document.body.classList.toggle("dark-mode");
+    JG_FOOD.theme =
+        JG_FOOD.theme === "dark"
+            ? "light"
+            : "dark";
 
     localStorage.setItem(
         "jgFoodTheme",
-        isDark ? "dark" : "light"
+        JG_FOOD.theme
     );
 
-    updateThemeButton(isDark);
-}
-
-
-function updateThemeButton(isDark) {
-
-    const button =
-        $("#themeToggle");
-
-    if (!button) return;
-
-    button.textContent =
-        isDark ? "☀️" : "🌙";
-
-    button.setAttribute(
-        "aria-label",
-        isDark
-            ? "Switch to light mode"
-            : "Switch to dark mode"
-    );
-
-    button.setAttribute(
-        "title",
-        isDark
-            ? "Light mode"
-            : "Dark mode"
-    );
-}
-
-
-const themeButton =
-    $("#themeToggle");
-
-if (themeButton) {
-
-    themeButton.addEventListener(
-        "click",
-        toggleTheme
-    );
-
+    applyTheme();
 }
 
 
@@ -135,373 +100,165 @@ if (themeButton) {
    MOBILE MENU
 ========================================================= */
 
-function initializeMenu() {
+function toggleMobileMenu() {
+    const menu = $(".mobile-menu");
 
-    const menuButton =
-        $("#menuBtn");
+    if (!menu) return;
 
-    const mobileMenu =
-        $("#mobileMenu");
+    menu.classList.toggle("open");
+}
 
-    if (!menuButton || !mobileMenu)
-        return;
+function closeMobileMenu() {
+    const menu = $(".mobile-menu");
 
-    menuButton.addEventListener(
-        "click",
-        () => {
-
-            const isOpen =
-                mobileMenu.classList.toggle("open");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                String(isOpen)
-            );
-
-            menuButton.textContent =
-                isOpen ? "×" : "☰";
-
-        }
-    );
-
-    $$(".mobile-menu a").forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
-                mobileMenu.classList.remove(
-                    "open"
-                );
-
-                menuButton.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuButton.textContent = "☰";
-
-            }
-        );
-
-    });
-
+    if (menu) {
+        menu.classList.remove("open");
+    }
 }
 
 
 /* =========================================================
-   SEARCH
+   CART
 ========================================================= */
 
-function initializeSearch() {
-
-    const searchInput =
-        $("#searchInput");
-
-    const searchButton =
-        $("#searchBtn");
-
-    const searchOverlay =
-        $("#searchOverlay");
-
-    const globalSearch =
-        $("#globalSearch");
-
-    const closeSearch =
-        $("#closeSearch");
-
-    if (searchButton) {
-
-        searchButton.addEventListener(
-            "click",
-            () => {
-
-                const value =
-                    searchInput?.value.trim();
-
-                openSearch(value);
-
-            }
+function addToCart(
+    id,
+    name,
+    price,
+    image = "🍔",
+    restaurant = "JG FOOD"
+) {
+    const existing =
+        JG_FOOD.cart.find(
+            item => String(item.id) === String(id)
         );
 
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        JG_FOOD.cart.push({
+            id,
+            name,
+            price: Number(price),
+            image,
+            restaurant,
+            quantity: 1
+        });
     }
 
-    if (searchInput) {
+    saveCart();
 
-        searchInput.addEventListener(
-            "keydown",
-            event => {
+    updateCartUI();
 
-                if (event.key === "Enter") {
-
-                    event.preventDefault();
-
-                    openSearch(
-                        searchInput.value.trim()
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-    if (closeSearch) {
-
-        closeSearch.addEventListener(
-            "click",
-            closeSearchOverlay
-        );
-
-    }
-
-    if (searchOverlay) {
-
-        searchOverlay.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    searchOverlay
-                ) {
-                    closeSearchOverlay();
-                }
-
-            }
-        );
-
-    }
-
-    if (globalSearch) {
-
-        globalSearch.addEventListener(
-            "input",
-            () => {
-
-                displaySearchResults(
-                    globalSearch.value
-                );
-
-            }
-        );
-
-    }
-
+    showNotification(
+        "Added to cart",
+        `${name} has been added to your cart.`
+    );
 }
 
 
-function openSearch(value = "") {
+function removeFromCart(id) {
+    JG_FOOD.cart =
+        JG_FOOD.cart.filter(
+            item => String(item.id) !== String(id)
+        );
 
-    const overlay =
-        $("#searchOverlay");
+    saveCart();
 
-    const input =
-        $("#globalSearch");
+    updateCartUI();
+}
 
-    if (!overlay)
+
+function changeQuantity(id, change) {
+    const item =
+        JG_FOOD.cart.find(
+            product =>
+                String(product.id) === String(id)
+        );
+
+    if (!item) return;
+
+    item.quantity += change;
+
+    if (item.quantity <= 0) {
+        removeFromCart(id);
         return;
-
-    overlay.classList.add("active");
-
-    overlay.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    if (input) {
-
-        input.value = value;
-
-        displaySearchResults(value);
-
-        setTimeout(
-            () => input.focus(),
-            100
-        );
-
     }
 
-    document.body.classList.add(
-        "no-scroll"
-    );
+    saveCart();
 
+    updateCartUI();
 }
 
 
-function closeSearchOverlay() {
-
-    const overlay =
-        $("#searchOverlay");
-
-    if (!overlay)
-        return;
-
-    overlay.classList.remove(
-        "active"
+function getCartCount() {
+    return JG_FOOD.cart.reduce(
+        (total, item) =>
+            total + Number(item.quantity || 0),
+        0
     );
-
-    overlay.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    document.body.classList.remove(
-        "no-scroll"
-    );
-
 }
 
 
-function displaySearchResults(query) {
+function getCartSubtotal() {
+    return JG_FOOD.cart.reduce(
+        (total, item) =>
+            total +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+        0
+    );
+}
+
+
+function updateCartUI() {
+    const count = getCartCount();
+    const subtotal = getCartSubtotal();
+
+    /* Header count */
+
+    $$(".cart-count").forEach(element => {
+        element.textContent = count;
+        element.style.display =
+            count > 0 ? "grid" : "none";
+    });
+
+
+    /* Bottom navigation count */
+
+    const bottomCount =
+        $(".bottom-cart b");
+
+    if (bottomCount) {
+        bottomCount.textContent = count;
+        bottomCount.style.display =
+            count > 0 ? "grid" : "none";
+    }
+
+
+    /* Cart items */
 
     const container =
-        $("#searchResults");
+        $(".cart-items");
 
-    if (!container)
-        return;
+    if (!container) return;
 
-    const cleanQuery =
-        query.trim().toLowerCase();
-
-    if (!cleanQuery) {
+    if (JG_FOOD.cart.length === 0) {
 
         container.innerHTML = `
-            <div class="search-empty">
-                <span>🔎</span>
-                <p>Start typing to search.</p>
-            </div>
-        `;
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
 
-        return;
-    }
+                <h3>Your cart is empty</h3>
 
-    const foods = $$(".food-card");
-
-    const restaurants =
-        $$(".restaurant-card");
-
-    const matches = [];
-
-    foods.forEach(card => {
-
-        const name =
-            card.dataset.foodName || "";
-
-        const text =
-            card.textContent.toLowerCase();
-
-        if (
-            name.toLowerCase().includes(cleanQuery) ||
-            text.includes(cleanQuery)
-        ) {
-
-            matches.push({
-                type: "Food",
-                name,
-                emoji:
-                    card.querySelector(
-                        ".food-image span"
-                    )?.textContent || "🍽️"
-            });
-
-        }
-
-    });
-
-    restaurants.forEach(card => {
-
-        const name =
-            card.dataset.restaurant || "";
-
-        const text =
-            card.textContent.toLowerCase();
-
-        if (
-            name.toLowerCase().includes(cleanQuery) ||
-            text.includes(cleanQuery)
-        ) {
-
-            matches.push({
-                type: "Restaurant",
-                name,
-                emoji: "🏪"
-            });
-
-        }
-
-    });
-
-    if (!matches.length) {
-
-        container.innerHTML = `
-            <div class="search-empty">
-                <span>😕</span>
-                <h3>No results found</h3>
                 <p>
-                    Try another food or restaurant name.
+                    Add delicious meals and they
+                    will appear here.
                 </p>
             </div>
         `;
 
-        return;
-    }
+    } else {
 
-    container.innerHTML =
-        matches.map(item => `
-            <button
-                type="button"
-                class="search-result-item"
-                data-result="${escapeHTML(item.name)}"
-            >
-                <span class="search-result-icon">
-                    ${item.emoji}
-                </span>
-
-                <span>
-                    <strong>
-                        ${escapeHTML(item.name)}
-                    </strong>
-
-                    <small>
-                        ${item.type}
-                    </small>
-                </span>
-
-                <span>→</span>
-            </button>
-        `).join("");
-
-    $$(".search-result-item", container)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const name =
-                        button.dataset.result;
-
-                    closeSearchOverlay();
-
-                    showNotification(
-                        "Search",
-                        `Opening ${name}`
-                    );
-
-                }
-            );
-
-        });
-
-}
-
-
-/* =========================================================
-   FOOD CARDS
-========================================================= */
-
-function initializeFoodCards() {
-
-    $$("[data-add-cart]").
+        container.innerHTML =
+            JG
