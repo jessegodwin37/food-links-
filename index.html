@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="description"
+        content="JG Food — Discover restaurants, order meals and enjoy food anywhere."
+    >
+
+    <meta name="theme-color" content="#f4512c">
+
     <title>JG Food | Good Food. Anywhere.</title>
 
     <link rel="stylesheet" href="style.css">
@@ -11,260 +18,879 @@
 
 <body>
 
-    <!-- HEADER -->
+    <!-- =========================================
+         APP HEADER
+    ========================================== -->
+
     <header class="header">
 
-        <div class="logo">
-            JG<span>Food</span>
+        <div class="brand-area">
+
+            <button
+                class="mobile-menu-btn"
+                onclick="openMenu()"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            <button
+                class="logo"
+                onclick="goHome()"
+                aria-label="JG Food Home"
+            >
+                JG<span>Food</span>
+            </button>
+
+            <button
+                class="location"
+                onclick="chooseLocation()"
+            >
+                <small>Deliver to</small>
+                <strong id="locationText">
+                    📍 Your location
+                </strong>
+            </button>
+
         </div>
 
-        <div class="location">
-            <small>Deliver to</small>
-            <strong>📍 Your location</strong>
-        </div>
 
-        <button class="account-btn">
-            👤
-        </button>
+        <div class="header-actions">
+
+            <button
+                class="header-icon"
+                onclick="openSearch()"
+                aria-label="Search"
+            >
+                🔎
+            </button>
+
+            <button
+                class="theme-btn"
+                id="themeToggle"
+                onclick="toggleTheme()"
+                aria-label="Toggle theme"
+            >
+                🌙
+            </button>
+
+            <button
+                class="cart-btn"
+                onclick="openCart()"
+                aria-label="Shopping cart"
+            >
+                🛒
+                <span id="cartCount">0</span>
+            </button>
+
+            <button
+                class="account-btn"
+                onclick="openAccount()"
+                aria-label="Account"
+            >
+                👤
+            </button>
+
+        </div>
 
     </header>
 
 
-    <!-- HERO -->
-    <section class="hero">
+    <!-- =========================================
+         MOBILE MENU
+    ========================================== -->
 
-        <div class="hero-content">
+    <div
+        class="mobile-menu"
+        id="mobileMenu"
+    >
 
-            <p class="welcome">WELCOME TO JG FOOD</p>
+        <button onclick="goHome()">
+            🏠 Home
+        </button>
 
-            <h1>
-                Good food.<br>
-                Good mood.
-            </h1>
+        <button onclick="scrollToSection('categoriesSection')">
+            🍔 Categories
+        </button>
 
-            <p class="hero-text">
-                Discover restaurants, order your favorite meals,
-                and enjoy great food wherever you are.
+        <button onclick="scrollToSection('restaurantsSection')">
+            🍽️ Restaurants
+        </button>
+
+        <button onclick="openOrders()">
+            📦 My Orders
+        </button>
+
+        <button onclick="openAccount()">
+            👤 Account
+        </button>
+
+    </div>
+
+
+    <!-- =========================================
+         SEARCH OVERLAY
+    ========================================== -->
+
+    <div
+        class="search-overlay"
+        id="searchOverlay"
+    >
+
+        <div class="search-panel">
+
+            <button
+                class="close-btn"
+                onclick="closeSearch()"
+            >
+                ×
+            </button>
+
+            <p class="small-label">
+                JG FOOD SEARCH
             </p>
 
-            <div class="search-box">
+            <h2>
+                What are you craving?
+            </h2>
+
+            <div class="large-search">
 
                 <span>🔎</span>
 
                 <input
+                    id="largeSearchInput"
                     type="text"
-                    id="searchInput"
                     placeholder="Search food or restaurants..."
+                    autocomplete="off"
                 >
 
-                <button onclick="searchFood()">
+                <button onclick="performLargeSearch()">
                     Search
+                </button>
+
+            </div>
+
+            <div class="search-suggestions">
+
+                <button onclick="quickSearch('Burger')">
+                    🍔 Burgers
+                </button>
+
+                <button onclick="quickSearch('Pizza')">
+                    🍕 Pizza
+                </button>
+
+                <button onclick="quickSearch('Chicken')">
+                    🍗 Chicken
+                </button>
+
+                <button onclick="quickSearch('African')">
+                    🍛 African
                 </button>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- FOOD CATEGORIES -->
-    <section class="section">
+    <!-- =========================================
+         MAIN APP
+    ========================================== -->
 
-        <div class="section-title">
-            <h2>What are you craving?</h2>
-        </div>
+    <main id="app">
 
-        <div class="categories">
+        <!-- HERO -->
 
-            <button onclick="filterFood('Burger')">
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="welcome">
+                    WELCOME TO JG FOOD
+                </p>
+
+                <h1>
+                    Good food.<br>
+                    Good mood.
+                </h1>
+
+                <p class="hero-text">
+                    Discover restaurants, order your favorite meals,
+                    and enjoy great food wherever you are.
+                </p>
+
+                <div class="search-box">
+
+                    <span>🔎</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search food or restaurants..."
+                        autocomplete="off"
+                    >
+
+                    <button onclick="searchFood()">
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="hero-food">
                 🍔
-                <span>Burgers</span>
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIES -->
+
+        <section
+            class="section"
+            id="categoriesSection"
+        >
+
+            <div class="section-title">
+
+                <div>
+                    <p class="small-label">
+                        DISCOVER
+                    </p>
+
+                    <h2>
+                        What are you craving?
+                    </h2>
+                </div>
+
+            </div>
+
+            <div class="categories">
+
+                <button onclick="filterFood('Burger')">
+                    <span class="category-icon">🍔</span>
+                    <span>Burgers</span>
+                </button>
+
+                <button onclick="filterFood('Pizza')">
+                    <span class="category-icon">🍕</span>
+                    <span>Pizza</span>
+                </button>
+
+                <button onclick="filterFood('Chicken')">
+                    <span class="category-icon">🍗</span>
+                    <span>Chicken</span>
+                </button>
+
+                <button onclick="filterFood('African')">
+                    <span class="category-icon">🍛</span>
+                    <span>African</span>
+                </button>
+
+                <button onclick="filterFood('Noodles')">
+                    <span class="category-icon">🍜</span>
+                    <span>Noodles</span>
+                </button>
+
+                <button onclick="filterFood('Dessert')">
+                    <span class="category-icon">🍰</span>
+                    <span>Desserts</span>
+                </button>
+
+                <button onclick="filterFood('Drinks')">
+                    <span class="category-icon">🥤</span>
+                    <span>Drinks</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESTAURANTS -->
+
+        <section
+            class="section"
+            id="restaurantsSection"
+        >
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-label">
+                        NEARBY
+                    </p>
+
+                    <h2>
+                        Restaurants near you
+                    </h2>
+
+                </div>
+
+                <button
+                    class="see-all"
+                    onclick="showAllRestaurants()"
+                >
+                    See all →
+                </button>
+
+            </div>
+
+            <div
+                class="restaurant-grid"
+                id="restaurantList"
+            ></div>
+
+        </section>
+
+
+        <!-- POPULAR FOOD -->
+
+        <section class="section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-label">
+                        POPULAR
+                    </p>
+
+                    <h2>
+                        Popular meals
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <div
+                class="food-grid"
+                id="popularFoodList"
+            ></div>
+
+        </section>
+
+
+        <!-- PROMO -->
+
+        <section class="promo-section">
+
+            <div class="promo-card">
+
+                <div class="promo-content">
+
+                    <span class="promo-label">
+                        JG FOOD
+                    </span>
+
+                    <h2>
+                        Great food is
+                        closer than you think.
+                    </h2>
+
+                    <p>
+                        Discover restaurants around you,
+                        find your next favorite meal and
+                        order with ease.
+                    </p>
+
+                    <button
+                        onclick="scrollToSection('restaurantsSection')"
+                    >
+                        Explore restaurants
+                    </button>
+
+                </div>
+
+                <div class="promo-icon">
+                    🍽️
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WHY JG FOOD -->
+
+        <section class="section why-section">
+
+            <div class="section-title">
+
+                <div>
+
+                    <p class="small-label">
+                        WHY JG FOOD
+                    </p>
+
+                    <h2>
+                        Food made simple.
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <div class="benefits">
+
+                <div class="benefit">
+
+                    <div>🍽️</div>
+
+                    <h3>
+                        Discover
+                    </h3>
+
+                    <p>
+                        Find restaurants and meals
+                        that match what you want.
+                    </p>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div>⚡</div>
+
+                    <h3>
+                        Order easily
+                    </h3>
+
+                    <p>
+                        Add your favorite meals
+                        to your cart in seconds.
+                    </p>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div>📍</div>
+
+                    <h3>
+                        Track
+                    </h3>
+
+                    <p>
+                        Follow your order from
+                        restaurant to your door.
+                    </p>
+
+                </div>
+
+                <div class="benefit">
+
+                    <div>🤖</div>
+
+                    <h3>
+                        AI food assistant
+                    </h3>
+
+                    <p>
+                        Get intelligent food
+                        recommendations in the future.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         RESTAURANT MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="restaurantModal"
+    >
+
+        <div class="modal-box restaurant-modal-box">
+
+            <button
+                class="modal-close"
+                onclick="closeRestaurant()"
+            >
+                ×
             </button>
 
-            <button onclick="filterFood('Pizza')">
-                🍕
-                <span>Pizza</span>
+            <div id="restaurantDetails"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FOOD MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="foodModal"
+    >
+
+        <div class="modal-box food-modal-box">
+
+            <button
+                class="modal-close"
+                onclick="closeFood()"
+            >
+                ×
             </button>
 
-            <button onclick="filterFood('Chicken')">
-                🍗
-                <span>Chicken</span>
-            </button>
+            <div id="foodDetails"></div>
 
-            <button onclick="filterFood('African')">
-                🍛
-                <span>African</span>
-            </button>
+        </div>
 
-            <button onclick="filterFood('Noodles')">
-                🍜
-                <span>Noodles</span>
-            </button>
+    </div>
 
-            <button onclick="filterFood('Dessert')">
-                🍰
-                <span>Desserts</span>
+
+    <!-- =========================================
+         CART DRAWER
+    ========================================== -->
+
+    <div
+        class="drawer-overlay"
+        id="cartOverlay"
+        onclick="closeCart()"
+    ></div>
+
+    <aside
+        class="cart-drawer"
+        id="cartDrawer"
+    >
+
+        <div class="drawer-header">
+
+            <div>
+
+                <p class="small-label">
+                    YOUR ORDER
+                </p>
+
+                <h2>
+                    Shopping cart
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                onclick="closeCart()"
+            >
+                ×
             </button>
 
         </div>
 
-    </section>
+        <div
+            class="cart-items"
+            id="cartItems"
+        ></div>
 
+        <div class="cart-summary">
 
-    <!-- RESTAURANTS -->
-    <section class="section">
+            <div>
+                <span>Subtotal</span>
+                <strong id="cartSubtotal">
+                    ₦0
+                </strong>
+            </div>
 
-        <div class="section-title">
+            <div>
+                <span>Delivery</span>
+                <strong id="cartDelivery">
+                    ₦0
+                </strong>
+            </div>
 
-            <h2>Restaurants near you</h2>
+            <div class="summary-total">
+                <span>Total</span>
+                <strong id="cartTotal">
+                    ₦0
+                </strong>
+            </div>
 
-            <button class="see-all">
-                See all
+            <button
+                class="checkout-btn"
+                onclick="openCheckout()"
+            >
+                Proceed to checkout
             </button>
 
         </div>
 
+    </aside>
 
-        <div class="restaurant-grid" id="restaurantList">
 
+    <!-- =========================================
+         CHECKOUT MODAL
+    ========================================== -->
 
-            <!-- RESTAURANT 1 -->
+    <div
+        class="modal"
+        id="checkoutModal"
+    >
 
-            <article class="restaurant-card">
+        <div class="modal-box checkout-box">
 
-                <div class="restaurant-image burger">
-                    🍔
+            <button
+                class="modal-close"
+                onclick="closeCheckout()"
+            >
+                ×
+            </button>
+
+            <p class="small-label">
+                CHECKOUT
+            </p>
+
+            <h2>
+                Complete your order
+            </h2>
+
+            <form
+                id="checkoutForm"
+                onsubmit="placeOrder(event)"
+            >
+
+                <label>
+                    Full name
+                </label>
+
+                <input
+                    type="text"
+                    id="checkoutName"
+                    required
+                    placeholder="Your full name"
+                >
+
+                <label>
+                    Phone number
+                </label>
+
+                <input
+                    type="tel"
+                    id="checkoutPhone"
+                    required
+                    placeholder="08012345678"
+                >
+
+                <label>
+                    Delivery address
+                </label>
+
+                <textarea
+                    id="checkoutAddress"
+                    required
+                    placeholder="Enter your delivery address"
+                ></textarea>
+
+                <label>
+                    Payment method
+                </label>
+
+                <select
+                    id="paymentMethod"
+                    required
+                >
+
+                    <option value="">
+                        Select payment method
+                    </option>
+
+                    <option value="card">
+                        Card
+                    </option>
+
+                    <option value="transfer">
+                        Bank transfer
+                    </option>
+
+                    <option value="cash">
+                        Cash on delivery
+                    </option>
+
+                </select>
+
+                <div class="checkout-total">
+
+                    <span>
+                        Amount to pay
+                    </span>
+
+                    <strong id="checkoutTotal">
+                        ₦0
+                    </strong>
+
                 </div>
 
-                <div class="restaurant-info">
+                <button
+                    type="submit"
+                    class="checkout-btn"
+                >
+                    Place order
+                </button>
 
-                    <h3>Burger District</h3>
-
-                    <p>
-                        ⭐ 4.8 · 15–25 min · ₦600 delivery
-                    </p>
-
-                    <div class="tags">
-                        <span>Burgers</span>
-                        <span>Fries</span>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- RESTAURANT 2 -->
-
-            <article class="restaurant-card">
-
-                <div class="restaurant-image african">
-                    🍛
-                </div>
-
-                <div class="restaurant-info">
-
-                    <h3>Mama's Kitchen</h3>
-
-                    <p>
-                        ⭐ 4.9 · 20–30 min · ₦700 delivery
-                    </p>
-
-                    <div class="tags">
-                        <span>African</span>
-                        <span>Rice</span>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- RESTAURANT 3 -->
-
-            <article class="restaurant-card">
-
-                <div class="restaurant-image pizza">
-                    🍕
-                </div>
-
-                <div class="restaurant-info">
-
-                    <h3>La Pizza House</h3>
-
-                    <p>
-                        ⭐ 4.7 · 25–35 min · ₦800 delivery
-                    </p>
-
-                    <div class="tags">
-                        <span>Pizza</span>
-                        <span>Italian</span>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- RESTAURANT 4 -->
-
-            <article class="restaurant-card">
-
-                <div class="restaurant-image chicken">
-                    🍗
-                </div>
-
-                <div class="restaurant-info">
-
-                    <h3>Chop & Grill</h3>
-
-                    <p>
-                        ⭐ 4.9 · 20–30 min · ₦650 delivery
-                    </p>
-
-                    <div class="tags">
-                        <span>Chicken</span>
-                        <span>Grill</span>
-                    </div>
-
-                </div>
-
-            </article>
+            </form>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- =========================================
+         ACCOUNT MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="accountModal"
+    >
+
+        <div class="modal-box account-box">
+
+            <button
+                class="modal-close"
+                onclick="closeAccount()"
+            >
+                ×
+            </button>
+
+            <div class="account-avatar">
+                👤
+            </div>
+
+            <p class="small-label">
+                JG FOOD ACCOUNT
+            </p>
+
+            <h2>
+                Your account
+            </h2>
+
+            <p class="modal-description">
+                Sign in to save addresses, favorite restaurants,
+                track orders and manage your JG Food experience.
+            </p>
+
+            <button
+                class="primary-btn"
+                onclick="showMessage('Account registration will be added next.')"
+            >
+                Create account
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="showMessage('Login system will be connected to the backend.')"
+            >
+                Sign in
+            </button>
+
+            <button
+                class="text-btn"
+                onclick="openOrders()"
+            >
+                View my orders →
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         ORDERS MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="ordersModal"
+    >
+
+        <div class="modal-box orders-box">
+
+            <button
+                class="modal-close"
+                onclick="closeOrders()"
+            >
+                ×
+            </button>
+
+            <p class="small-label">
+                JG FOOD
+            </p>
+
+            <h2>
+                My orders
+            </h2>
+
+            <div id="ordersList"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         BOTTOM NAVIGATION
+    ========================================== -->
 
     <nav class="bottom-nav">
 
-        <button class="active" onclick="showSection('Home')">
-            🏠
-            <span>Home</span>
+        <button
+            class="active"
+            onclick="goHome()"
+        >
+            <span>🏠</span>
+            Home
         </button>
 
-        <button onclick="showSection('Explore')">
-            🔎
-            <span>Explore</span>
+        <button
+            onclick="scrollToSection('restaurantsSection')"
+        >
+            <span>🔎</span>
+            Explore
         </button>
 
-        <button onclick="showSection('Orders')">
-            🛍️
-            <span>Orders</span>
+        <button
+            onclick="openOrders()"
+        >
+            <span>📦</span>
+            Orders
         </button>
 
-        <button onclick="showSection('Account')">
-            👤
-            <span>Account</span>
+        <button
+            onclick="openAccount()"
+        >
+            <span>👤</span>
+            Account
         </button>
 
     </nav>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- =========================================
+         NOTIFICATION
+    ========================================== -->
+
+    <div
+        id="jgNotification"
+        class="notification"
+    ></div>
+
 
     <script src="app.js"></script>
 
